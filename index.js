@@ -8,7 +8,8 @@
  */
 
 /* Gameboard factory function*/
-function Gameboard(){
+/* IIFE */
+const gameboard = (function (){
 	const row = 3;
 	const col = 3;
 	let board = [];
@@ -16,18 +17,14 @@ function Gameboard(){
 	for (let i = 0; i < row; i++){
 		board[i] = []
 		for (let j = 0; j < col; j++) {
-			console.log(board[i].push(''));
+
+			console.log(board[i].push(Cell()))
 		}
 	}
 
 	const getBoard = () => board;
 
 	return {getBoard}
-}
-
-/* IIFE */
-const gameboard = (function (){
-
 })();
 
 /*
@@ -36,18 +33,26 @@ const gameboard = (function (){
   ** 1: Player One's token,
   ** 2: Player 2's token
   */
+
 function Cell(){
 
 	let marker = 0;
 
-	const addMarker = (player) => marker++;
+	const addMarker = (player) => {
+		marker = player;
+	};
 
-	return {addMarker}
+	const getMarker = () => marker;
+	return {addMarker, getMarker}
+}
+
+function Player(name, marker){
+	return {name, marker}
+}
+
+
+function GameController(){
 
 }
 
-function DisplayController(){
-
-}
-
-const game = Gameboard();
+gameboard.getBoard();
